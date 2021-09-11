@@ -2,12 +2,19 @@
 
 ## Local Dev
 
-1. Install [LaTeXTools](https://latextools.readthedocs.io/en/latest/install/)
+<!-- 1. Install [LaTeXTools](https://latextools.readthedocs.io/en/latest/install/)
 
    - Add to path:
 
    ```
    sudo echo "/Library/TeX/texbin" >> /etc/paths
+   ``` -->
+
+1. Install MacTex (if you will be making PDFs)
+
+   ```
+   brew cask install mactex
+   sudo chown -R myuser:mygroup /usr/local/texlive
    ```
 
 1. Clone project
