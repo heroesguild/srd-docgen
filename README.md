@@ -7,7 +7,7 @@
    - Add to path:
 
    ```
-   sudo echo "/Library/TeX/texbin" > /etc/paths
+   sudo echo "/Library/TeX/texbin" >> /etc/paths
    ```
 
 1. Clone project
