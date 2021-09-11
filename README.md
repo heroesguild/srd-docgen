@@ -1,28 +1,20 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/55a7471c-4719-489f-9cdd-a4b247695000/deploy-status)](https://app.netlify.com/sites/hgrpg/deploys)
+
 ## Local Dev
 
 1. Install [LaTeXTools](https://latextools.readthedocs.io/en/latest/install/)
 
-   (TODO: Revise: Mac troubleshooting)
-
-   - Check if `latexmk` exists in path
+   - Add to path:
 
    ```
-   which latexmk
-   ```
-
-   - If not, might need to:
-
-   ```
-   sudo nano /etc/paths
-   ```
-
-   - Add the following:
-
-   ```
-   /Library/TeX/texbin
+   sudo echo "/Library/TeX/texbin" > /etc/paths
    ```
 
 1. Clone project
+
+   ```
+   git clone git@github.com:keithrpotempa/hgrpg-sphinx.git && cd hgrpg-sphinx
+   ```
 
 1. Make python virtual environment:
 
@@ -41,7 +33,7 @@
    python3 -m pip install -r requirements.txt
    ```
 
-## Building
+## Building Locally
 
 (make sure your environment is activated)
 
@@ -49,10 +41,10 @@
 source .venv/bin/activate
 ```
 
-1. Navigate into the `source` directory:
+1. Navigate into the `docs` directory:
 
    ```
-   cd source
+   cd docs
    ```
 
 1. If building HTML
