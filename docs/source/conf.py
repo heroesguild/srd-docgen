@@ -62,11 +62,16 @@ latex_elements = {
 
     # The font size ('10pt', '11pt' or '12pt').
     #
-    'pointsize': '12pt',
+    'pointsize': '10pt',
 
     # Additional stuff for the LaTeX preamble.
     #
-    # 'preamble': '',
+    'preamble': r'''
+        \usepackage[layout=true]{dnd}
+    ''',
+    
+    # Extra classes used by external dnd template package 
+    'extraclassoptions': 'twoside, twocolumn, openany',
 
     # Latex figure (float) alignment
     #
