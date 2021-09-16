@@ -55,7 +55,9 @@ source .venv/bin/activate
    sudo chown -R myuser:mygroup /usr/local/texlive
    ```
 
-1. Install the LaTeX template
+<!-- ONLY IF USING DND TEMPLATE -->
+
+<!-- 1. Install the LaTeX template
 
    (Instructions copied from the "User install using `TEXMFHOME`" from the template's README [here](https://github.com/rpgtex/DND-5e-LaTeX-Template#readme))
 
@@ -78,8 +80,27 @@ source .venv/bin/activate
          wget https://github.com/rpgtex/DND-5e-LaTeX-Template/archive/master.zip
          unzip -d "$(kpsewhich -var-value TEXMFHOME)/tex/latex/" master.zip
          cd "$(kpsewhich -var-value TEXMFHOME)/tex/latex/"
-         mv DND-5e-LaTeX-Template-master dnd
-         ```
+         mv DND-5e-LaTeX-Template-master dnd 
+         ```-->
+1. (make sure your environment is activated)
+
+```
+source .venv/bin/activate
+```
+
+1. Navigate into the `docs` directory:
+
+   ```
+   cd docs
+   ```
+
+1. Build static html and serve:
+   ```
+   make latexpdf
+   ```
+
+1. View PDF output in `build/latex`
+
 
 ## Customizing Build
 

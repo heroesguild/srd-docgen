@@ -55,27 +55,43 @@ html_static_path = ['_static']
 
 # -- Options for LaTeX output -------------------------------------------------
 
+# -- DND TEMPLATE LATEX -------------------------------------------------------
+# latex_elements = {
+#     # The paper size ('letterpaper' or 'a4paper').
+#     #
+#     # 'papersize': 'letterpaper',
+
+#     # The font size ('10pt', '11pt' or '12pt').
+#     #
+#     'pointsize': '10pt',
+
+#     'preamble': r'''
+#         \usepackage[layout=true]{dnd}
+#     ''',
+    
+#     # Extra classes used by external dnd template package 
+#     'extraclassoptions': 'twoside, twocolumn, openany',
+# }
+
+# -- MEDIEVAL TEMPLATE LATEX ----------------------------------------------------
+language = 'english'
+latex_additional_files = ["medieval_template.sty"]
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
     #
     # 'papersize': 'letterpaper',
 
+    # Extra classes used by external dnd template package 
+    'extraclassoptions': 'twoside, english',
+
+
     # The font size ('10pt', '11pt' or '12pt').
     #
-    'pointsize': '10pt',
+    'pointsize': '12pt',
 
-    # Additional stuff for the LaTeX preamble.
-    #
-    'preamble': r'''
-        \usepackage[layout=true]{dnd}
-    ''',
-    
-    # Extra classes used by external dnd template package 
-    'extraclassoptions': 'twoside, twocolumn, openany',
-
-    # Latex figure (float) alignment
-    #
-    # 'figure_align': 'htbp',
+    # Using this local style package 
+    # 
+    'preamble': r'\usepackage{medieval_template}',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
