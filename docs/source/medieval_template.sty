@@ -1,3 +1,7 @@
+% Based off template here:
+% https://tex.stackexchange.com/a/74609
+
+% Added this to allow importing of this file as a package
 \ProvidesFile{medieval_template.sty}
 \ProvidesPackage{medieval_template}
 
@@ -11,6 +15,7 @@
 \definecolor{darkgray}{RGB}{0,80,0}
 \definecolor{darkred}{RGB}{80,0,0}
 \definecolor{shadecolor}{rgb}{0.97,0.97,0.97}
+% \usepackage[demo]{graphicx}
 \usepackage{wallpaper}
 \usepackage{wrapfig,booktabs}
 
@@ -46,35 +51,60 @@ expansion=true]{microtype}
 
 \usepackage{fourier-orns}
 
+% TODO: Update these with new ornaments from fourier
+% https://ctan.joethei.xyz/fonts/fourier-GUT/doc//fourier-orns-doc.pdf
 \newcommand{\ornamento}{\vspace{2em}\noindent \textcolor{darkgray}{\hrulefill~ \raisebox{-2.5pt}[10pt][10pt]{\leafright \decofourleft \decothreeleft  \aldineright \decotwo \floweroneleft \decoone   \floweroneright \decotwo \aldineleft\decothreeright \decofourright \leafleft} ~  \hrulefill \\ \vspace{2em}}}
 \newcommand{\ornpar}{\noindent \textcolor{darkgray}{ \raisebox{-1.9pt}[10pt][10pt]{\leafright} \hrulefill \raisebox{-1.9pt}[10pt][10pt]{\leafright \decofourleft \decothreeleft  \aldineright \decotwo \floweroneleft \decoone}}}
 \newcommand{\ornimpar}{\textcolor{darkgray}{\raisebox{-1.9pt}[10pt][10pt]{\decoone \floweroneright \decotwo \aldineleft \decothreeright \decofourright \leafleft} \hrulefill \raisebox{-1.9pt}[10pt][10pt]{\leafleft}}}
 
 \makeatletter
-\def\headrule{{\color{darkgray}\raisebox{-2.1pt}[10pt][10pt]{\leafright} \hrulefill \raisebox{-2.1pt}[10pt][10pt]{~~~\decofourleft \decotwo\decofourright~~~} \hrulefill \raisebox{-2.1pt}[10pt][10pt]{ \leafleft}}}
+    \def\headrule{{\color{darkgray}\raisebox{-2.1pt}[10pt][10pt]{\leafright} \hrulefill \raisebox{-2.1pt}[10pt][10pt]{~~~\decofourleft \decotwo\decofourright~~~} \hrulefill \raisebox{-2.1pt}[10pt][10pt]{ \leafleft}}}
 \makeatother
 
-\fancyhf{}
+% Added makeatletter / makeatother wrapper for sphinx purposes
+\makeatletter
+    % Chapter start pages
+    \fancypagestyle{plain}{
+        \fancyhf{}
+        % removes sphinx's default head and foot rules
+        \renewcommand{\headrulewidth}{0pt}
+        \renewcommand{\footrulewidth}{0pt}
+    }
+    % Normal pages
+    \fancypagestyle{normal}{
+        \fancyhf{}
+        % removes sphinx's default head and foot rules
+        \renewcommand{\headrulewidth}{0pt}
+        \renewcommand{\footrulewidth}{0pt}
 
-\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
-\renewcommand{\sectionmark}[1]{\markright{#1}}
+        % \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+        % \renewcommand{\sectionmark}[1]{\markright{#1}}
 
-\newcommand{\estcab}[1]{\itshape\textcolor{marron}{\nouppercase #1}}
+        \newcommand{\estcab}[1]{\itshape\textcolor{marron}{\nouppercase #1}}
 
-\fancyhead[LE]{\estcab{Fran Oldstyle}}
-\fancyhead[RE]{\estcab{History of taxonomy}}
-% \fancyhead[CE,CO]{\estcab{\decoone}}
-\fancyhead[LO]{\estcab{\rightmark}} % malo cuando no hay section ~~~ \thesection
-\fancyhead[RO]{\estcab{\leftmark}}
+        % Note:
+        % \rightmark = "Chapter 3. Getting Started"
+        % \leftmark = "3.6. Doing Stuff"
+        \fancyhead[LE]{\estcab{\leftmark}}
+        \fancyhead[RE]{\estcab{\rightmark}}
 
-% \fancyhead[RO]{\bf\nouppercase{ \leftmark}}
-% \fancyfoot[LE]{\bf \thepage ~~ \leafNE}
-% \fancyfoot[RO]{ \leafNE  ~~ \bf \thepage}
+        % Center decoration
+        % \fancyhead[CE,CO]{\estcab{\decoone}}
+        
+        % \fancyhead[LO]{\estcab{\rightmark}} % malo cuando no hay section ~~~ \thesection
+        % \fancyhead[RO]{\estcab{\leftmark}}
 
-\fancyfoot[LO]{
-\ornimpar \\ \large \hfill \sffamily\bf \textcolor{darkgray}{\leafNE ~~~ \thepage}
-}
-\fancyfoot[RE]{\ornpar   \\ \large  \sffamily\bf \textcolor{darkgray}{\thepage ~~~ \reflectbox{\leafNE}}  \hfill}
+        % \fancyhead[RO]{\bf\nouppercase{ \leftmark}}
+        % \fancyfoot[LE]{\bf \thepage ~~ \leafNE}
+        % \fancyfoot[RO]{ \leafNE  ~~ \bf \thepage}
+
+        \fancyfoot[LO]{
+            \ornimpar \\ \large \hfill \sffamily\bf \textcolor{darkgray}{\leafNE ~~~ \thepage}
+        }
+        
+        \fancyfoot[RE]{\ornpar   \\ \large  \sffamily\bf \textcolor{darkgray}{\thepage ~~~ \reflectbox{\leafNE}}  \hfill}
+    }
+\makeatother
 
 \newenvironment{Section}[1]
 {\section{\vspace{0ex}#1}}

@@ -74,7 +74,6 @@ html_static_path = ['_static']
 # }
 
 # -- MEDIEVAL TEMPLATE LATEX ----------------------------------------------------
-language = 'english'
 latex_additional_files = ["medieval_template.sty"]
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
@@ -92,6 +91,10 @@ latex_elements = {
     # Using this local style package 
     # 
     'preamble': r'\usepackage{medieval_template}',
+
+    # TODO: fncychap is styling the chapters; making them look strange 
+    # 
+    'fncychap': '',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
