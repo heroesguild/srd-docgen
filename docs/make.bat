@@ -9,6 +9,7 @@ if "%SPHINXBUILD%" == "" (
 )
 set SOURCEDIR=source
 set BUILDDIR=build
+set SPHINXOPTS=-c ../config & :: Allowing for a shared config folder
 
 if "%1" == "" goto help
 
