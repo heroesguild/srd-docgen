@@ -55,7 +55,9 @@ source .venv/bin/activate
    sudo chown -R myuser:mygroup /usr/local/texlive
    ```
 
-1. Install the LaTeX template
+<!-- ONLY IF USING DND TEMPLATE -->
+
+<!-- 1. Install the LaTeX template
 
    (Instructions copied from the "User install using `TEXMFHOME`" from the template's README [here](https://github.com/rpgtex/DND-5e-LaTeX-Template#readme))
 
@@ -78,11 +80,40 @@ source .venv/bin/activate
          wget https://github.com/rpgtex/DND-5e-LaTeX-Template/archive/master.zip
          unzip -d "$(kpsewhich -var-value TEXMFHOME)/tex/latex/" master.zip
          cd "$(kpsewhich -var-value TEXMFHOME)/tex/latex/"
-         mv DND-5e-LaTeX-Template-master dnd
-         ```
+         mv DND-5e-LaTeX-Template-master dnd 
+         ```-->
+1. (make sure your environment is activated)
+
+```
+source .venv/bin/activate
+```
+
+1. Navigate into the `docs` directory:
+
+   ```
+   cd docs
+   ```
+
+1. Build static html and serve:
+   ```
+   make latexpdf
+   ```
+
+1. View PDF output in `build/latex`
+
 
 ## Customizing Build
 
 To customize, edit LaTeX, HTML options in `conf.py` file.
 
 See options reference [here](https://www.sphinx-doc.org/en/master/usage/configuration.html).
+
+## Deploying to Netlify
+
+- Link your github repo to a Netlify site
+- Build Settings:
+   - Build Command: eg: `cd docs && make html` 
+      - Navigate into the directory where your project's `MakeFile` is located
+      - Build the html
+   - Publish Directory: eg: `docs/build/html` 
+      - The directory where your html outputs to
