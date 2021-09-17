@@ -1,4 +1,4 @@
-Welcome to HGRPG's documentation!
+Welcome to the SRD DOCGEN documentation!
 =================================
 
 .. toctree::
