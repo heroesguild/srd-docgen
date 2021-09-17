@@ -19,6 +19,10 @@ source .venv/bin/activate
 1. Build static html and serve:
    ```
    make html
+   python -m http.server 8000
+   ```
+   (or if that doesn't work)
+   ```
    python -m SimpleHTTPServer 8000
    ```
 
