@@ -107,3 +107,13 @@ source .venv/bin/activate
 To customize, edit LaTeX, HTML options in `conf.py` file.
 
 See options reference [here](https://www.sphinx-doc.org/en/master/usage/configuration.html).
+
+## Deploying to Netlify
+
+- Link your github repo to a Netlify site
+- Build Settings:
+   - Build Command: eg: `cd docs && make html` 
+      - Navigate into the directory where your project's `MakeFile` is located
+      - Build the html
+   - Publish Directory: eg: `docs/build/html` 
+      - The directory where your html outputs to
