@@ -51,58 +51,183 @@ expansion=true]{microtype}
 
 \usepackage{fourier-orns}
 
+% -- ORNAMENTS -------------------------------------------------------------
 % TODO: Update these with new ornaments from fourier
-% https://ctan.joethei.xyz/fonts/fourier-GUT/doc//fourier-orns-doc.pdf
-\newcommand{\ornamento}{\vspace{2em}\noindent \textcolor{darkgray}{\hrulefill~ \raisebox{-2.5pt}[10pt][10pt]{\leafright \decofourleft \decothreeleft  \aldineright \decotwo \floweroneleft \decoone   \floweroneright \decotwo \aldineleft\decothreeright \decofourright \leafleft} ~  \hrulefill \\ \vspace{2em}}}
-\newcommand{\ornpar}{\noindent \textcolor{darkgray}{ \raisebox{-1.9pt}[10pt][10pt]{\leafright} \hrulefill \raisebox{-1.9pt}[10pt][10pt]{\leafright \decofourleft \decothreeleft  \aldineright \decotwo \floweroneleft \decoone}}}
-\newcommand{\ornimpar}{\textcolor{darkgray}{\raisebox{-1.9pt}[10pt][10pt]{\decoone \floweroneright \decotwo \aldineleft \decothreeright \decofourright \leafleft} \hrulefill \raisebox{-1.9pt}[10pt][10pt]{\leafleft}}}
+
+% Ornament Index
+% PDF reference: https://ctan.joethei.xyz/fonts/fourier-GUT/doc//fourier-orns-doc.pdf
+% \noway % circle with a line through it
+% \warning % caution sign
+% \textxswup % swords pointed up
+% \textxswdown % swords pointed down
+% \decoone  % petal burst
+% \decotwo % acorn with a hat?
+% \decothreeleft % skinny -> fat swirlie 
+% \decothreeright  % fat -> skinny swirlie
+% \decofourleft % slightly fat -> slightly skinny double swirlie 
+% \decofourright % slightly skinny -> slightly fat double swirlie 
+% \lefthand % hand pointing to the right
+% \righthand % hand pointing to the left
+% \decosix % burst
+% \bomb % bomb with lit fuse
+
+% Leaves Index
+% \leafleft % leaf with stem pointing left
+% \leafright % leaf with stem pointing right
+% \leafNW % leaf with tip pointing northwest
+% \leafNE % leaf with tip pointing northeest
+% \leafSW % leaf with tip pointing southwest
+% \leafSE % leaf with tip pointing sortheast
+% \aldineleft % heart with a hat?
+% \aldineright % heart with a hat?
+% \aldine % heart with a hat?
+% \aldinesmall % pepper on its side ?
+
+% Unused?
+% \newcommand{\ornamento}{\vspace{2em}\noindent \textcolor{darkgray}{\hrulefill~ \raisebox{-2.5pt}[10pt][10pt]{\leafright \decofourleft \decothreeleft  \aldineright \decotwo \floweroneleft \decoone   \floweroneright \decotwo \aldineleft\decothreeright \decofourright \leafleft} ~  \hrulefill \\ \vspace{2em}}}
+
+% Footer Ornament: Even Pages 
+\newcommand{\ornfooteven}{%
+    \noindent \textcolor{darkgray}{% 
+        \raisebox{-1.9pt}[10pt][10pt]{\leafright} 
+        \hrulefill 
+        \raisebox{-1.9pt}[10pt][10pt]{%
+            \leafright % leaf with stem pointing right
+            \decofourleft % double swirlie 
+            \decothreeleft % skinny -> fat swirlie 
+            \aldineright % heart with a hat?
+            \decotwo % acorn with a hat?
+            \floweroneleft % swirling flower pointing left
+            \decoone  % petal burst
+            % ORIGINAL
+            % \leafright 
+            % \decofourleft 
+            % \decothreeleft  
+            % \aldineright 
+            % \decotwo 
+            % \floweroneleft 
+            % \decoone
+        }
+    }
+}
+
+% Footer Ornament: Odd Pages 
+\newcommand{\ornfootodd}{%
+    \textcolor{darkgray}{%
+        \raisebox{-1.9pt}[10pt][10pt]{%
+            \decoone 
+            \floweroneright 
+            \decotwo 
+            \aldineleft 
+            \decothreeright 
+            \decofourright 
+            \leafleft
+            % ORIGINAL
+            % \decoone 
+            % \floweroneright 
+            % \decotwo 
+            % \aldineleft 
+            % \decothreeright 
+            % \decofourright 
+            % \leafleft
+        } 
+        \hrulefill 
+        \raisebox{-1.9pt}[10pt][10pt]{\leafleft}
+    }
+}
+
+% Header Ornament
+\newcommand{\ornhead}{%
+    \color{darkgray}
+    % LEFT SIDE
+    % ORIGINAL: "STRAIGHT LEAF"
+    % \raisebox{-2.1pt}[10pt][10pt]{\leafright} 
+    % "FALLING LEAF"
+    % \raisebox{-2.1pt}[10pt][10pt]{\leafSW} 
+    % "OLD STYLE PILCROW"
+    \raisebox{-2.1pt}[10pt][10pt]{\reflectbox{\oldpilcrowfour}} 
+    \hrulefill     
+    % CENTER 
+    % ORIGINAL: "SWIRLEY ACORN"
+    % \raisebox{-2.1pt}[10pt][10pt]{~~~\decofourleft \decotwo\decofourright~~~} 
+    % "THE STAR"
+    \raisebox{-2.1pt}[10pt][10pt]{~~~\decofourright \decosix \decofourleft~~~} 
+    % RIGHT SIDE
+    \hrulefill 
+    % ORIGINAL: "STRAIGHT LEAF"
+    % \raisebox{-2.1pt}[10pt][10pt]{\leafleft}
+    % "FALLING LEAF"
+    % \raisebox{-2.1pt}[10pt][10pt]{\leafSE}
+    % "OLD STYLE PILCROW"
+    \raisebox{-2.1pt}[10pt][10pt]{\oldpilcrowfour} 
+
+}
+
 
 \makeatletter
-    \def\headrule{{\color{darkgray}\raisebox{-2.1pt}[10pt][10pt]{\leafright} \hrulefill \raisebox{-2.1pt}[10pt][10pt]{~~~\decofourleft \decotwo\decofourright~~~} \hrulefill \raisebox{-2.1pt}[10pt][10pt]{ \leafleft}}}
+    \def\headrule{\ornhead}
 \makeatother
 
 % Added makeatletter / makeatother wrapper for sphinx purposes
 \makeatletter
-    % Chapter start pages
+    % -- CHAPTER START PAGES -----------------------------------------------
     \fancypagestyle{plain}{
-        \fancyhf{}
         % removes sphinx's default head and foot rules
+        \fancyhf{}
         \renewcommand{\headrulewidth}{0pt}
         \renewcommand{\footrulewidth}{0pt}
     }
-    % Normal pages
+    % -- NORMAL PAGES ------------------------------------------------------
     \fancypagestyle{normal}{
-        \fancyhf{}
         % removes sphinx's default head and foot rules
+        \fancyhf{}
         \renewcommand{\headrulewidth}{0pt}
         \renewcommand{\footrulewidth}{0pt}
 
         % \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
         % \renewcommand{\sectionmark}[1]{\markright{#1}}
 
-        \newcommand{\estcab}[1]{\itshape\textcolor{marron}{\nouppercase #1}}
+        % Had to add an extra # escape character after wrapping in fancypagestyle
+        % https://tex.stackexchange.com/a/101375/252211
+        \newcommand{\estcab}[1]{\itshape\textcolor{marron}{\nouppercase ##1}}
 
+        % -- HEADER TEXT ----------------------------------------------------
         % Note:
         % \rightmark = "Chapter 3. Getting Started"
         % \leftmark = "3.6. Doing Stuff"
         \fancyhead[LE]{\estcab{\leftmark}}
         \fancyhead[RE]{\estcab{\rightmark}}
 
-        % Center decoration
-        % \fancyhead[CE,CO]{\estcab{\decoone}}
-        
         % \fancyhead[LO]{\estcab{\rightmark}} % malo cuando no hay section ~~~ \thesection
         % \fancyhead[RO]{\estcab{\leftmark}}
 
         % \fancyhead[RO]{\bf\nouppercase{ \leftmark}}
+
+        % -- FOOTER TEXT ----------------------------------------------------
         % \fancyfoot[LE]{\bf \thepage ~~ \leafNE}
         % \fancyfoot[RO]{ \leafNE  ~~ \bf \thepage}
 
         \fancyfoot[LO]{
-            \ornimpar \\ \large \hfill \sffamily\bf \textcolor{darkgray}{\leafNE ~~~ \thepage}
+            \ornfootodd \\ 
+            \large 
+            \hfill 
+            \sffamily\bf 
+            \textcolor{darkgray}{
+                \leafNE ~~~ \thepage
+            }
         }
         
-        \fancyfoot[RE]{\ornpar   \\ \large  \sffamily\bf \textcolor{darkgray}{\thepage ~~~ \reflectbox{\leafNE}}  \hfill}
+        \fancyfoot[RE]{
+            \ornfooteven \\ 
+            \large  
+            \sffamily\bf 
+            \textcolor{darkgray}{
+                \thepage ~~~ \reflectbox{
+                    \leafNE
+                }
+            }  
+            \hfill
+        }
     }
 \makeatother
 
