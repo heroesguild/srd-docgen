@@ -1,11 +1,11 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/55a7471c-4719-489f-9cdd-a4b247695000/deploy-status)](https://app.netlify.com/sites/hgrpg/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/3fd99e77-67fb-4d9b-bdaf-f0755dc3ffbf/deploy-status)](https://app.netlify.com/sites/srd-docgen/deploys)
 
 ## Local Dev
 
 1. Clone project
 
    ```
-   git clone git@github.com:keithrpotempa/hgrpg-sphinx.git && cd hgrpg-sphinx
+   git clone git@github.com:keithrpotempa/srd-docgen.git && cd srd-docgen
    ```
 
 1. Make python virtual environment:
