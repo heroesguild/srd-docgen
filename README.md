@@ -2,6 +2,26 @@
 
 1. Install [LaTeXTools](https://latextools.readthedocs.io/en/latest/install/)
 
+   (TODO: Revise: Mac troubleshooting)
+
+   - Check if `latexmk` exists in path
+
+   ```
+   which latexmk
+   ```
+
+   - If not, might need to:
+
+   ```
+   sudo nano /etc/paths
+   ```
+
+   - Add the following:
+
+   ```
+   /Library/TeX/texbin
+   ```
+
 1. Clone project
 
 1. Make python virtual environment:
@@ -23,6 +43,12 @@
 
 ## Building
 
+(make sure your environment is activated)
+
+```
+source .venv/bin/activate
+```
+
 1. Navigate into the `source` directory:
 
    ```
@@ -42,3 +68,9 @@
    ```
    make latexpdf
    ```
+
+## Customizing Build
+
+To customize, edit LaTeX, HTML options in `conf.py` file.
+
+See options reference [here](https://www.sphinx-doc.org/en/master/usage/configuration.html).
