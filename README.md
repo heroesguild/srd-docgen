@@ -2,4 +2,4 @@
 
 # Documentation
 
-Documenation is available from the [static html srd-docgen site](https://srd-docgen.netlify.app). 
+[WIP] Documenation is available from the [static html srd-docgen site](https://srd-docgen.netlify.app). 
