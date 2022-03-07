@@ -1,0 +1,32 @@
+export const tempIndex = {
+  // parents: [],
+  // prev: null,
+  next: { link: "01_introduction/", title: "Introduction" },
+  title: "Welcome to the SRD DOCGEN documentation!",
+  // meta: null,
+  body: '<div class="section" id="welcome-to-the-srd-docgen-documentation">\n<h1>Welcome to the SRD DOCGEN documentation!<a class="headerlink" href="#welcome-to-the-srd-docgen-documentation" title="Permalink to this headline">\u00b6</a></h1>\n<div class="toctree-wrapper compound">\n<p class="caption"><span class="caption-text">Contents:</span></p>\n<ul>\n<li class="toctree-l1"><a class="reference internal" href="01_introduction/">Introduction</a></li>\n<li class="toctree-l1"><a class="reference internal" href="02_getting_started/">Local Dev</a></li>\n<li class="toctree-l1"><a class="reference internal" href="02_getting_started/#customizing-build">Customizing Build</a></li>\n<li class="toctree-l1"><a class="reference internal" href="02_getting_started/#deploying-to-netlify">Deploying to Netlify</a></li>\n<li class="toctree-l1"><a class="reference internal" href="03_html/">Building HTML</a></li>\n<li class="toctree-l1"><a class="reference internal" href="04_pdf/">Building PDFs</a></li>\n<li class="toctree-l1"><a class="reference internal" href="05_markdown/">Markdown &amp; MyST, Style Guide</a><ul>\n<li class="toctree-l2"><a class="reference internal" href="05_markdown/#rest-roles-directives">ReST Roles &amp; Directives</a></li>\n<li class="toctree-l2"><a class="reference internal" href="05_markdown/#roles-with-different-text">Roles with Different Text</a></li>\n<li class="toctree-l2"><a class="reference internal" href="05_markdown/#terms">Terms</a></li>\n<li class="toctree-l2"><a class="reference internal" href="05_markdown/#index">Index</a></li>\n</ul>\n</li>\n<li class="toctree-l1"><a class="reference internal" href="glossary/">Glossary</a></li>\n</ul>\n</div>\n<div class="section" id="indices-and-tables">\n<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">\u00b6</a></h2>\n<ul class="simple">\n<li><p><a class="reference internal" href="genindex/"><span class="std std-ref">Index</span></a></p></li>\n<li><p><a class="reference internal" href="py-modindex/"><span class="std std-ref">Module Index</span></a></p></li>\n<li><p><a class="reference internal" href="search/"><span class="std std-ref">Search Page</span></a></p></li>\n</ul>\n</div>\n</div>\n',
+  metatags: "",
+  rellinks: [
+    ["genindex", "General Index", "I", "index"],
+    ["01_introduction", "Introduction", "N", "next"],
+  ],
+  sourcename: "index.rst.txt",
+  toc: '<ul>\n<li><a class="reference internal" href="#">Welcome to the SRD DOCGEN documentation!</a><ul>\n<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>\n</ul>\n</li>\n</ul>\n',
+  display_toc: true,
+  page_source_suffix: ".rst",
+  current_page_name: "index",
+  sidebars: [
+    "sidebar-logo.html",
+    "search-field.html",
+    "sbt-sidebar-nav.html",
+    "sbt-sidebar-footer.html",
+  ],
+  // customsidebar: null,
+  alabaster_version: "0.7.12",
+  pagetitle: "Welcome to the SRD DOCGEN documentation!",
+  page_description:
+    "Welcome to the SRD DOCGEN documentation!  Contents:Introduction  Local Dev  Customizing Build  Deploying to Netlify  Building HTML  Building PDFs  Markdown & My",
+  author: "Keith R. Potempa",
+  theme_search_bar_text: "Search the docs ...",
+  theme_show_toc_level: 1,
+};
