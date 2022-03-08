@@ -1,17 +1,17 @@
-import React from 'react'
-import { Root, Routes, addPrefetchExcludes } from 'react-static'
-import { Link, Router } from '@reach/router'
+import React from "react";
+import { Root, Routes, addPrefetchExcludes } from "react-static";
+import { Link, Router } from "@reach/router";
 
-import { Router as DocRouter } from './docs/Router';
+// import { Router as DocRouter } from "../docSetup/Router";
 
-import FancyDiv from 'components/FancyDiv'
-import Dynamic from 'containers/Dynamic'
+import FancyDiv from "components/FancyDiv";
+import Dynamic from "containers/Dynamic";
 
-import './app.css'
-import logo from './logo.png'
+import "./app.css";
+import logo from "./logo.png";
 
 // Any routes that start with 'dynamic' will be treated as non-static routes
-addPrefetchExcludes(['dynamic'])
+addPrefetchExcludes(["dynamic"]);
 
 function App() {
   return (
@@ -26,7 +26,7 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <FancyDiv>
           <React.Suspense fallback={<em>Loading...</em>}>
-            <DocRouter/>
+            {/* <DocRouter/> */}
             <Router>
               <Dynamic path="dynamic" />
               <Routes path="*" />
@@ -35,7 +35,7 @@ function App() {
         </FancyDiv>
       </div>
     </Root>
-  )
+  );
 }
 
-export default App
+export default App;
