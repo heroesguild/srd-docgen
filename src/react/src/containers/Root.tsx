@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 // import { getRouteProps } from "react-static";
 // import { SphinxPage, GlobalData } from "../sphinx";
 // import { LandingPage } from "../components";
@@ -10,11 +10,15 @@ import * as React from "react";
 //   context: GlobalData;
 // }
 
-export const Root = () => (
-  <p>Root page!</p>
+const Root = () => (
+  <div>
+    <p>Root page!!!</p>
+  </div>
   // <LandingPage
   //   data={data.page}
   //   sponsors={data.sponsors}
   //   context={data.context}
   // />
 );
+
+export default Root;

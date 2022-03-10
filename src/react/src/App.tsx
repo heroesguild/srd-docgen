@@ -1,6 +1,7 @@
 import React from "react";
 import { Root, Routes, addPrefetchExcludes } from "react-static";
 import { Link, Router } from "@reach/router";
+import { hot } from "react-hot-loader";
 
 // import { Router as DocRouter } from "../docSetup/Router";
 
@@ -38,4 +39,4 @@ function App() {
   );
 }
 
-export default App;
+export default hot(module)(App);

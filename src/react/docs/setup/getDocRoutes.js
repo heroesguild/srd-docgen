@@ -1,10 +1,18 @@
 import path from "path";
 import find from "find";
 import fs from "fs";
-// const genDebug = debug("mbe:gen");
 
 const isNormal = (name, body, title) => {
-  const nonNormalNames = ["index.fjson", "globalcontext.fjson", "search.fjson"];
+  console.log("NAME", name);
+  // console.log("BODY", body);
+  console.log("TITLE", title);
+  const nonNormalNames = [
+    "/index.fjson",
+    "/genindex.fjson",
+    "/glossary.fjson",
+    "/globalcontext.fjson",
+    "/search.fjson",
+  ];
 
   if (nonNormalNames.includes(name)) {
     return false;
@@ -18,7 +26,6 @@ export function getDocRoutes(rootDir) {
     // Construct path to build/json directory produced by Sphinx
     // TODO: more elegant
     const jsonDir = path.join(rootDir, "..", "sphinx", "docs", "build", "json");
-    // genDebug("jsonDir = %s", jsonDir);
 
     // // Find all .fjson files
     const results = await new Promise((resolve) => {
@@ -41,7 +48,7 @@ export function getDocRoutes(rootDir) {
     // Loop over all pages
     pages.forEach((page) => {
       // This is the URL that Sphinx uses to refer to that page
-      const href = page.slice(0, page.length - 6) + "/";
+      const href = page.slice(0, page.length - 6); //+ "/";
       // Build path relative to current directory
       const file = path.join(jsonDir, page);
 
@@ -58,30 +65,38 @@ export function getDocRoutes(rootDir) {
       }
     });
 
+    console.log("MAP", map);
+    console.log("TITLES", titles);
+
     // Handle the root as a special case
     const root = {
       path: "/",
-      component: "src/containers/Root",
-      getProps: () => ({
-        page: map["/index.fjson"],
-        sponsors: sponsors,
-        context: context,
-      }),
+      template: "src/containers/Root",
+      // getProps: () => ({
+      //   page: map["/index.fjson"],
+      //   sponsors: sponsors,
+      //   context: context,
+      // }),
     };
 
     const normal = pages
-      .filter((page) => isNormal(page, map[page]))
+      .filter((page) =>
+        isNormal(page, map[page], titles[page.slice(0, page.length - 6)])
+      )
       .map((page) => {
+        console.error(page);
         return {
-          path: page.slice(0, page.length - 6) + "/",
-          component: "src/containers/Page",
-          getProps: () => ({
-            data: map[page],
-            titles: titles,
-            context: context,
-          }),
+          path: page.slice(1, page.length - 6),
+          template: "src/containers/Page",
+          // getProps: () => ({
+          //   data: map[page],
+          //   titles: titles,
+          //   context: context,
+          // }),
         };
       });
+
+    console.log("NORMAL: ", normal);
 
     // If we aren't in dev model, rebuild the search index and write it into
     // dist/lunr.json
@@ -148,16 +163,10 @@ export function getDocRoutes(rootDir) {
 
     // genDebug("# of normal pages: %j", normal.length);
 
-    // Add a 404 page
-    const error = {
-      path: "404",
-      component: "src/pages/404",
-    };
     return [
       root,
       ...normal,
       // ...index,
-      error,
     ];
   };
 }

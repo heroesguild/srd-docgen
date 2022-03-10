@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "start": "react-static start",
+    "debug": "react-static start --debug",
     "stage": "react-static build --staging",
     "build": "react-static build",
     "bundle": "react-static bundle",
