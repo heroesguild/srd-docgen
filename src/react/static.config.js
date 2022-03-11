@@ -1,6 +1,6 @@
 import axios from "axios";
 import path from "path";
-import { getDocRoutes } from "./docs/setup";
+import { getDocRoutes } from "./docs/setup/getDocRoutes";
 // import { Post } from './types'
 
 // Typescript support in static.config.js is not yet supported, but is coming in a future update!
