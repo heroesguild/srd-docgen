@@ -9,8 +9,10 @@ import fs from "fs";
 
 // TODO: swap when react-static 8 release TS support for static.config
 // const removeFjsonExtension = (fileName: string) => {
-const removeFjsonExtension = (fileName) => {
-  return fileName.slice(0, fileName.length - 6);
+/** Strips the extension from a filename */
+const removeExtension = (fileName) => {
+  const [extension] = fileName.split(".").slice(-1);
+  return fileName.slice(0, fileName.length - extension.length - 1);
 };
 
 /** Checks if a page is a 'normal' user-created page (is not an index, glossary, search page, etc) */
@@ -18,11 +20,12 @@ const removeFjsonExtension = (fileName) => {
 // const isNormalPage = (fileName: string) => {
 const isNormalPage = (fileName) => {
   const nonNormalNames = [
-    "index.fjson",
     "genindex.fjson",
     "glossary.fjson",
-    "globalcontext.fjson",
+    "globalcontext.json",
+    "index.json",
     "search.fjson",
+    "searchindex.json",
   ];
 
   if (nonNormalNames.includes(fileName)) {
@@ -57,8 +60,9 @@ const buildMap = (pageFileNames, jsonBuildDir) => {
   const pageTitlesDict = {};
 
   pageFileNames.forEach((pageFileName) => {
-    // Slice off the file's extension (.fjson) -- this is the URL that Sphinx uses to refer to that page
-    const pageSlug = removeFjsonExtension(pageFileName);
+    // Slice off the file's extension -- this is the URL that Sphinx uses to refer to that page
+    const pageSlug = removeExtension(pageFileName);
+
     // Build path relative to current directory
     const pageFilePath = path.join(jsonBuildDir, pageFileName);
 
@@ -98,7 +102,7 @@ export function getDocRoutes(rootDir) {
     // TODO: swap when react-static 8 release TS support for static.config
     // const fjsonFilePaths: string[] = await new Promise((resolve) => {
     const fjsonFilePaths = await new Promise((resolve) => {
-      find.file(/\.fjson$/, jsonBuildDir, (files) => {
+      find.file(/json$/, jsonBuildDir, (files) => {
         resolve(files);
       });
     });
@@ -114,19 +118,18 @@ export function getDocRoutes(rootDir) {
     // Handle the root as a special case
     const root = {
       path: "/",
-      template: "src/containers/Root",
-      // getProps: () => ({
-      //   page: map["/index.fjson"],
-      //   sponsors: sponsors,
-      //   context: context,
-      // }),
+      template: "src/containers/Page",
+      getData: () => ({
+        data: pageMap["index.json"],
+        titles: pageTitlesDict,
+      }),
     };
 
     const normalPages = pageFileNames
       .filter((pageFileName) => isNormalPage(pageFileName))
       .map((pageFileName) => {
         return {
-          path: removeFjsonExtension(pageFileName),
+          path: removeExtension(pageFileName),
           template: "src/containers/Page",
           getData: () => ({
             data: pageMap[pageFileName],
