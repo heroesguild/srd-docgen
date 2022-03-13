@@ -30,6 +30,7 @@ export default {
   //   ];
   // },
   plugins: [
+    "react-static-plugin-emotion",
     "react-static-plugin-typescript",
     [
       require.resolve("react-static-plugin-source-filesystem"),

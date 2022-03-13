@@ -3,7 +3,7 @@ import { Root, Routes, addPrefetchExcludes } from "react-static";
 import { Link, Router } from "@reach/router";
 import { hot } from "react-hot-loader";
 
-// import { Router as DocRouter } from "../docSetup/Router";
+import { ChakraProvider, ColorModeScript, extendTheme } from "@chakra-ui/react";
 
 import FancyDiv from "components/FancyDiv";
 import Dynamic from "containers/Dynamic";
@@ -15,26 +15,30 @@ import logo from "./logo.png";
 addPrefetchExcludes(["dynamic"]);
 
 function App() {
+  const theme = extendTheme();
+
   return (
     <Root>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/blog">Blog</Link>
-        <Link to="/dynamic">Dynamic</Link>
-      </nav>
-      <div className="content">
-        <img src={logo} className="App-logo" alt="logo" />
-        <FancyDiv>
-          <React.Suspense fallback={<em>Loading...</em>}>
-            {/* <DocRouter/> */}
-            <Router>
-              <Dynamic path="dynamic" />
-              <Routes path="*" />
-            </Router>
-          </React.Suspense>
-        </FancyDiv>
-      </div>
+      <ChakraProvider>
+        <nav>
+          <Link to="/">Home</Link>
+          <Link to="/about">About</Link>
+          <Link to="/blog">Blog</Link>
+          <Link to="/dynamic">Dynamic</Link>
+        </nav>
+        <div className="content">
+          <img src={logo} className="App-logo" alt="logo" />
+          <FancyDiv>
+            <React.Suspense fallback={<em>Loading...</em>}>
+              <Router>
+                <Dynamic path="dynamic" />
+                <Routes path="*" />
+              </Router>
+            </React.Suspense>
+          </FancyDiv>
+        </div>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+      </ChakraProvider>
     </Root>
   );
 }
