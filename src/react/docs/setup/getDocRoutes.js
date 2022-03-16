@@ -21,7 +21,6 @@ const removeExtension = (fileName) => {
 const isNormalPage = (fileName) => {
   const nonNormalNames = [
     "genindex.fjson",
-    "glossary.fjson",
     "globalcontext.json",
     "index.json",
     "search.fjson",

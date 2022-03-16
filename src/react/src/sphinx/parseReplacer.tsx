@@ -4,18 +4,23 @@ import {
   HTMLReactParserOptions,
   Element,
   DOMNode,
+  attributesToProps,
 } from "html-react-parser";
 import {
+  Badge,
+  Box,
+  Code,
   Heading,
   Link,
   LinkBox,
   LinkOverlay,
   ListItem,
+  OrderedList,
   Text,
   UnorderedList,
 } from "@chakra-ui/react";
 import { Link as ReachLink } from "@reach/router";
-// import { LinkIcon } from "@chakra-ui/icons";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 
 const headingSizeDict: Record<string, string> = {
   h1: "2xl",
@@ -25,6 +30,7 @@ const headingSizeDict: Record<string, string> = {
   h5: "sm",
 };
 
+/** Decides what kind of Chakra link component to replace an a tag with */
 const linkReplacer = (attribs: Record<string, string>, children: DOMNode[]) => {
   if (attribs.class === "reference internal") {
     return (
@@ -32,6 +38,10 @@ const linkReplacer = (attribs: Record<string, string>, children: DOMNode[]) => {
         {domToReact(children, parseReplacer)}
       </Link>
     );
+  } else if (attribs.class === "reference external") {
+    <Link href={attribs.href} isExternal>
+      {domToReact(children, parseReplacer)} <ExternalLinkIcon mx="2px" />
+    </Link>;
   } else if (attribs.class === "headerlink") {
     return (
       <LinkOverlay href={attribs.href}>
@@ -54,6 +64,13 @@ export const parseReplacer: HTMLReactParserOptions = {
     if (domNode instanceof Element && domNode.attribs) {
       const { attribs, name, children } = domNode;
       switch (name) {
+        case "a":
+          return linkReplacer(attribs, children);
+        case "div":
+          return <Box>{domToReact(children, parseReplacer)}</Box>;
+        case "code":
+          return <Code>{domToReact(children, parseReplacer)}</Code>;
+        // Headings
         case name.match(/h\d+/)?.input:
           return (
             <LinkBox>
@@ -64,20 +81,34 @@ export const parseReplacer: HTMLReactParserOptions = {
           );
         case "li":
           return <ListItem>{domToReact(children, parseReplacer)}</ListItem>;
-        case "a":
-          return linkReplacer(attribs, children);
+        case "ol":
+          return (
+            <OrderedList>{domToReact(children, parseReplacer)}</OrderedList>
+          );
         case "p":
           return <Text>{domToReact(children, parseReplacer)}</Text>;
+        case "pre":
+          return <Text as="pre">{domToReact(children, parseReplacer)}</Text>;
+        case "span":
+          // TODO: this would probably be good to do in all of these components?
+          const props = attributesToProps(domNode.attribs);
+          return <span {...props}>{domToReact(children, parseReplacer)}</span>;
         case "ul":
+        case "dl":
           return (
             <UnorderedList>{domToReact(children, parseReplacer)}</UnorderedList>
           );
-        // TODO:
-        // case "div":
-        // return <>{domToReact(children, parseReplacer)}</>
-        // TODO
-        // case "span":
-        // return <>{domToReact(children, parseReplacer)}</>
+        // TODO: admonition <div class=\"admonition note\">
+        // Dictionary term (for glossary)
+        case "dt":
+          return (
+            <Badge variant="outline">
+              {domToReact(children, parseReplacer)}
+            </Badge>
+          );
+        // Dictionary definition (for glossary)
+        case "dd":
+          return <Box ml={3}>{domToReact(children, parseReplacer)}</Box>;
         default:
           console.error("Unaccounted for html element to parse:", name);
           return <>{domToReact(children, parseReplacer)}</>;
