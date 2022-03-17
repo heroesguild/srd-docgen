@@ -17,7 +17,7 @@ import {
   UnorderedList,
 } from "@chakra-ui/react";
 import { LinkReplacement } from "./LinkReplacement";
-import { AdmonitionReplacement } from "./AdmonitionReplacement";
+import { DivReplacement } from "./DivReplacement";
 
 const headingSizeDict: Record<string, string> = {
   h1: "2xl",
@@ -37,10 +37,7 @@ export const parseReplacer: HTMLReactParserOptions = {
         case "a":
           return <LinkReplacement domNode={domNode} />;
         case "div":
-          if (attribs.class === "admonition note") {
-            return <AdmonitionReplacement domNode={domNode} />;
-          }
-          return <Box {...props}>{domToReact(children, parseReplacer)}</Box>;
+          return <DivReplacement domNode={domNode} />;
         case "code":
           return <Code {...props}>{domToReact(children, parseReplacer)}</Code>;
         // Headings
@@ -72,9 +69,9 @@ export const parseReplacer: HTMLReactParserOptions = {
           return <Text {...props}>{domToReact(children, parseReplacer)}</Text>;
         case "pre":
           return (
-            <Text as="pre" {...props}>
+            <Code p={3} {...props}>
               {domToReact(children, parseReplacer)}
-            </Text>
+            </Code>
           );
         case "span":
           return <span {...props}>{domToReact(children, parseReplacer)}</span>;
