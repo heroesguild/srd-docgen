@@ -9,7 +9,10 @@ import { Container } from "@chakra-ui/react";
 const SphinxPage = () => {
   const { data }: { data: SphinxPageType } = useRouteData();
   console.log(data);
-
+  if (!data) {
+    console.error("Page data is undefined");
+    return null;
+  }
   return <Container>{parse(data.body, options)}</Container>;
 };
 

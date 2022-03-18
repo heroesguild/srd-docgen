@@ -6,6 +6,7 @@ import {
   attributesToProps,
 } from "html-react-parser";
 import {
+  As,
   Badge,
   Box,
   Code,
@@ -18,6 +19,7 @@ import {
 } from "@chakra-ui/react";
 import { LinkReplacement } from "./LinkReplacement";
 import { DivReplacement } from "./DivReplacement";
+import { TableReplacement } from "./TableReplacement";
 
 const headingSizeDict: Record<string, string> = {
   h1: "2xl",
@@ -45,7 +47,7 @@ export const parseReplacer: HTMLReactParserOptions = {
           return (
             <LinkBox>
               <Heading
-                as={name as any}
+                as={name as As<any>}
                 size={headingSizeDict[name] ?? "sm"}
                 {...props}
               >
@@ -73,8 +75,33 @@ export const parseReplacer: HTMLReactParserOptions = {
               {domToReact(children, parseReplacer)}
             </Code>
           );
+        case "em":
+        case "strong":
+        case "i":
+        case "u":
+        case "abbr":
+        case "cite":
+        case "del":
+        case "em":
+        case "ins":
+        case "kbd":
+        case "mark":
+        case "s":
+        case "samp":
+        case "sub":
+        case "sup":
+          return <Text as={name}>{domToReact(children, parseReplacer)}</Text>;
         case "span":
           return <span {...props}>{domToReact(children, parseReplacer)}</span>;
+        case "table":
+        case "thead":
+        case "th":
+        case "tbody":
+        case "tfoot":
+        case "tr":
+        case "td":
+        case "caption":
+          return <TableReplacement domNode={domNode} />;
         case "ul":
         case "dl":
           return (
@@ -96,8 +123,10 @@ export const parseReplacer: HTMLReactParserOptions = {
               {domToReact(children, parseReplacer)}
             </Box>
           );
+        // TODO: images
+        // TODO: index
         default:
-          console.error("Unaccounted for html element to parse:", name);
+          console.log("Unaccounted for html element to parse:", name);
           return <>{domToReact(children, parseReplacer)}</>;
       }
     }

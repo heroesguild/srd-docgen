@@ -1,6 +1,9 @@
 import path from "path";
 import find from "find";
 import fs from "fs";
+
+// FIXME: Build stage should move/sync sphinx's static content to public folder
+
 // TODO: swap when react-static 8 release TS support for static.config
 // import type { SphinxPage } from "../types";
 
@@ -20,7 +23,7 @@ const removeExtension = (fileName) => {
 // const isNormalPage = (fileName: string) => {
 const isNormalPage = (fileName) => {
   const nonNormalNames = [
-    "genindex.fjson",
+    "genindex.fjson", // TODO: genindex page requires its own custom component
     "globalcontext.json",
     "index.json",
     "search.fjson",
@@ -92,7 +95,9 @@ export function getDocRoutes(rootDir) {
       rootDir,
       "..",
       "sphinx",
-      "docs",
+      // TODO: develop more elegant way of conditionally handling particular / more than one book
+      // "docs",
+      "srd",
       "build",
       "json"
     );
@@ -119,7 +124,7 @@ export function getDocRoutes(rootDir) {
       path: "/",
       template: "src/containers/Page",
       getData: () => ({
-        data: pageMap["index.json"],
+        data: pageMap["index.fjson"], // Gotcha: srd is fjson / docs is json?
         titles: pageTitlesDict,
       }),
     };
