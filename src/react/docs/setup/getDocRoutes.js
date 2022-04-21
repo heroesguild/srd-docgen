@@ -1,7 +1,11 @@
 import path from "path";
 import find from "find";
-import fs from "fs";
 
+import {
+  isNormalPage,
+  removeExtension,
+  parseFileContentsAsJSON,
+} from "./docRouteHelpers";
 // FIXME: Build stage should move/sync sphinx's static content to public folder
 
 // TODO: swap when react-static 8 release TS support for static.config
@@ -9,33 +13,6 @@ import fs from "fs";
 
 // TODO: swap when react-static 8 release TS support for static.config
 // type PageMap = Record<string, SphinxPage>;
-
-// TODO: swap when react-static 8 release TS support for static.config
-// const removeFjsonExtension = (fileName: string) => {
-/** Strips the extension from a filename */
-const removeExtension = (fileName) => {
-  const [extension] = fileName.split(".").slice(-1);
-  return fileName.slice(0, fileName.length - extension.length - 1);
-};
-
-/** Checks if a page is a 'normal' user-created page (is not an index, glossary, search page, etc) */
-// TODO: swap when react-static 8 release TS support for static.config
-// const isNormalPage = (fileName: string) => {
-const isNormalPage = (fileName) => {
-  const nonNormalNames = [
-    "genindex.fjson", // TODO: genindex page requires its own custom component
-    "globalcontext.json",
-    "index.json",
-    "search.fjson",
-    "searchindex.json",
-  ];
-
-  if (nonNormalNames.includes(fileName)) {
-    return false;
-  }
-
-  return true;
-};
 
 /**
  * Loops over every page file name, opens that file, converts its contents into an object, then
@@ -70,7 +47,7 @@ const buildMap = (pageFileNames, jsonBuildDir) => {
 
     try {
       // Parse the contents of the file as JSON
-      const pageObj = JSON.parse(fs.readFileSync(pageFilePath).toString());
+      const pageObj = parseFileContentsAsJSON(pageFilePath);
 
       // Store away the data from the file and the title
       pageMap[pageFileName] = pageObj;
@@ -119,13 +96,18 @@ export function getDocRoutes(rootDir) {
     // Map contents of all pages, create a dictionary of page file names to page titles
     const { pageMap, pageTitlesDict } = buildMap(pageFileNames, jsonBuildDir);
 
+    const globalContext = pageMap["globalcontext.json"];
+    const indexContext = pageMap["index.fjson"]; // Gotcha: srd is fjson / docs is json?
+
     // Handle the root as a special case
     const root = {
       path: "/",
       template: "src/containers/Page",
       getData: () => ({
-        data: pageMap["index.fjson"], // Gotcha: srd is fjson / docs is json?
+        data: indexContext,
         titles: pageTitlesDict,
+        globalContext: globalContext,
+        indexContext: indexContext,
       }),
     };
 
@@ -138,7 +120,8 @@ export function getDocRoutes(rootDir) {
           getData: () => ({
             data: pageMap[pageFileName],
             titles: pageTitlesDict,
-            // context: context,
+            globalContext: globalContext,
+            indexContext: indexContext,
           }),
         };
       });

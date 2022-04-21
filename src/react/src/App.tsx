@@ -10,6 +10,7 @@ import Dynamic from "containers/Dynamic";
 
 import "./app.css";
 import logo from "./logo.png";
+import { TOCBurgerMenu } from "components/TOCBurgerMenu";
 
 // Any routes that start with 'dynamic' will be treated as non-static routes
 addPrefetchExcludes(["dynamic"]);
@@ -21,6 +22,7 @@ function App() {
     <Root>
       <ChakraProvider>
         <nav>
+          <TOCBurgerMenu />
           <Link to="/">Home</Link>
           <Link to="/about">About</Link>
           <Link to="/blog">Blog</Link>
