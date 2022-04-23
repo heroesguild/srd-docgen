@@ -10,7 +10,7 @@ import Dynamic from "containers/Dynamic";
 
 import "./app.css";
 import logo from "./logo.png";
-import { TOCBurgerMenu } from "components/TOCBurgerMenu";
+import { TOCBurgerMenu } from "components/TOC/TOCBurgerMenu";
 
 // Any routes that start with 'dynamic' will be treated as non-static routes
 addPrefetchExcludes(["dynamic"]);
