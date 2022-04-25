@@ -5,13 +5,13 @@ import {
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
-  DrawerFooter,
+  // DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { TOCAccordion } from "./TOCAccordion";
+import { TOC } from "./TOC";
 
 export const TOCBurgerMenu = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -34,15 +34,15 @@ export const TOCBurgerMenu = () => {
           <DrawerHeader>Table of Contents</DrawerHeader>
 
           <DrawerBody>
-            <TOCAccordion />
+            <TOC />
           </DrawerBody>
 
-          <DrawerFooter>
-            {/* <Button variant="outline" mr={3} onClick={onClose}>
+          {/* <DrawerFooter> */}
+          {/* <Button variant="outline" mr={3} onClick={onClose}>
               Cancel
             </Button>
             <Button colorScheme="blue">Save</Button> */}
-          </DrawerFooter>
+          {/* </DrawerFooter> */}
         </DrawerContent>
       </Drawer>
     </>

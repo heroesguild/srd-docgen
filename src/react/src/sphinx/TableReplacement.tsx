@@ -46,6 +46,6 @@ export const TableReplacement = ({ domNode }: { domNode: DOMNode }) => {
         return <>{domToReact(children, parseReplacer)}</>;
     }
   } else {
-    return null;
+    return <></>;
   }
 };

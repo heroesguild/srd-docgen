@@ -1,21 +1,19 @@
 import React from "react";
+import { Accordion } from "@chakra-ui/react";
 
-import {
-  // Accordion,
-  // AccordionItem,
-  // AccordionButton,
-  // AccordionPanel,
-  // AccordionIcon,
-  // Box,
-  Container,
-} from "@chakra-ui/react";
-import { useRouteData } from "react-static";
-import { tocParser as options } from "./tocParser";
-import parse from "html-react-parser";
+type TOCAccordionProps = {
+  children: React.ReactNode;
+};
 
-export const TOCAccordion = () => {
-  const { indexContext } = useRouteData();
-  console.log(indexContext.body);
-  // return <Container>{parse(indexContext.body)}</Container>;
-  return <Container>{parse(indexContext.body, options)}</Container>;
+export const TOCAccordion = ({ children }: TOCAccordionProps) => {
+  return (
+    <Accordion
+      // TODO: should change based on the current url
+      defaultIndex={[0]}
+      allowMultiple
+      allowToggle
+    >
+      {children}
+    </Accordion>
+  );
 };

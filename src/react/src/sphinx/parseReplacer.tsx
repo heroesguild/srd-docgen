@@ -124,7 +124,6 @@ export const parseReplacer: HTMLReactParserOptions = {
             </Box>
           );
         // TODO: images
-        // TODO: index
         default:
           console.log("Unaccounted for html element to parse:", name);
           return <>{domToReact(children, parseReplacer)}</>;
