@@ -9,19 +9,22 @@ import {
 type TOCAccordionItemProps = {
   // The props html-react-parser is returning
   link: JSX.Element | JSX.Element[] | string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 export const TOCAccordionItem = ({ link, children }: TOCAccordionItemProps) => {
+  if (!link) return <></>;
+
+  // Note: when there's no children, we hide the collapsible content and icon
   return (
     <AccordionItem>
       <h2>
         <AccordionButton>
           {link}
-          <AccordionIcon />
+          {children && <AccordionIcon />}
         </AccordionButton>
       </h2>
-      <AccordionPanel>{children}</AccordionPanel>
+      {children && <AccordionPanel>{children}</AccordionPanel>}
     </AccordionItem>
   );
 };
