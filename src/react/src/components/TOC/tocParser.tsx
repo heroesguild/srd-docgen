@@ -14,6 +14,17 @@ import { TOCAccordion } from "./TOCAccordion";
 import { TOCAccordionItem } from "./TOCAccordionItem";
 import { LinkInternal } from "components/Link/LinkInternal";
 
+const getHeadingLevel = (attribs: any) => {
+  if (!attribs.class || !attribs.class.includes("toctree-l")) {
+    // console.log("no class or no 'toctree-l'!");
+    return "h6";
+  }
+
+  const num = parseInt(attribs.class.split("toctree-l")[1]) as number;
+
+  return (num + 1) as number;
+};
+
 /**
  * Replaces raw HTML nodes with Chakra UI React component counterparts
  * for the Table of Contents */
@@ -32,6 +43,9 @@ export const tocParser: HTMLReactParserOptions = {
             </LinkInternal>
           );
         case "div":
+          if (attribs.id === "indices-and-tables") {
+            return <></>;
+          }
           // Ignoring the divs on the index page for the TOC
           return <>{domToReact(children, tocParser)}</>;
         case "h1":
@@ -42,15 +56,17 @@ export const tocParser: HTMLReactParserOptions = {
           const linkChild = children.filter((c) => c.name === "a");
           /* @ts-expect-error */
           const childrenToCollapse = children.filter((c) => c.name === "ul");
-
+          const headingLevel = getHeadingLevel(attribs) as number;
           // In the edge case where we have no matches, bail
           if (linkChild.length === 0) return <></>;
 
-          // @ts-expect-error
-          if (children.find((c) => c.name === "ul")) {
+          if (childrenToCollapse.length > 0) {
             // If the li has ul as children, it must be expandable
             return (
-              <TOCAccordionItem link={domToReact(linkChild, tocParser)}>
+              <TOCAccordionItem
+                headingLevel={headingLevel}
+                link={domToReact(linkChild, tocParser)}
+              >
                 {domToReact(childrenToCollapse, tocParser)}
               </TOCAccordionItem>
             );
@@ -58,6 +74,7 @@ export const tocParser: HTMLReactParserOptions = {
             // Otherwise, it is just an item with no collapsible content
             return (
               <TOCAccordionItem
+                headingLevel={headingLevel}
                 link={domToReact(linkChild, tocParser)}
                 {...props}
               />
